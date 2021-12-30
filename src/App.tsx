@@ -86,6 +86,7 @@ const App = () => {
             const { data } = await axios.get(`${process.env.REACT_APP_SECRET_URL}/api/v1/snippet/`);
             console.log(data);
             setFiles(data);
+
         }
 
         fetchData();
