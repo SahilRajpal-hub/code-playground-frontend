@@ -8,7 +8,8 @@ import axios from 'axios';
 import Loader from './Components/Loader';
 
 const App = () => {
-    console.log(process.env.BASE_URL)
+
+    console.log(process.env.REACT_APP_SECRET_URL)
     const [srcDoc, setSrcDoc] = useState(`<h1>Start your ride. Happy Play!</h1>`);
     const [currFile, setCurrFile] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -56,7 +57,7 @@ const App = () => {
                 'Content-Type': 'application/json',
             },
         }
-        const { data } = await axios.post(`/api/v1/snippet/`, files, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_SECRET_URL}/api/v1/snippet/`, files, config);
         console.log(data)
         setLoading2(false);
     }
@@ -66,7 +67,7 @@ const App = () => {
         const input = "5";
         const extension = currfileName.split('.')[1];
         const code = (files[currFile] as any)[currfileName]?.value;
-        const url = `/api/v1/execute/${extension}`;
+        const url = `${process.env.REACT_APP_SECRET_URL}/api/v1/execute/${extension}`;
 
         axios.post(url, { code, input }).then(data => {
             console.log(data.data);
@@ -82,7 +83,7 @@ const App = () => {
     useEffect(() => {
 
         const fetchData = async () => {
-            const { data } = await axios.get(`/api/v1/snippet/`);
+            const { data } = await axios.get(`${process.env.REACT_APP_SECRET_URL}/api/v1/snippet/`);
             console.log(data);
             setFiles(data);
         }
