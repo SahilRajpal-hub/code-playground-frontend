@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loader from './Components/Loader';
 
+
 const App = () => {
 
     console.log(process.env.REACT_APP_SECRET_URL)
