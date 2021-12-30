@@ -52,13 +52,17 @@ const App = () => {
 
     const saveFilesInDB = async () => {
         setLoading2(true);
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+            const { data } = await axios.post(`${process.env.REACT_APP_SECRET_URL}/api/v1/snippet/`, files, config);
+            console.log(data)
+        } catch (err) {
+            console.log(err);
         }
-        const { data } = await axios.post(`${process.env.REACT_APP_SECRET_URL}/api/v1/snippet/`, files, config);
-        console.log(data)
         setLoading2(false);
     }
 
@@ -77,16 +81,20 @@ const App = () => {
             setLoading(false);
         }).catch(err => {
             console.log(err);
+            setLoading(false);
         })
     }
 
     useEffect(() => {
 
         const fetchData = async () => {
-            const { data } = await axios.get(`${process.env.REACT_APP_SECRET_URL}/api/v1/snippet/`);
-            console.log(data);
-            setFiles(data);
-
+            try {
+                const { data } = await axios.get(`${process.env.REACT_APP_SECRET_URL}/api/v1/snippet/`);
+                console.log(data);
+                setFiles(data);
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         fetchData();
