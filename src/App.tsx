@@ -75,9 +75,9 @@ const App = () => {
         const url = `${process.env.REACT_APP_SECRET_URL}/api/v1/execute/${extension}`;
 
         axios.post(url, { code, input }).then(data => {
-            console.log(data.data);
+            console.log(data.data.output);
             setSrcDoc(`
-                <h1>${data.data.output}</h1>
+                <h1>${JSON.stringify(data.data.output)}</h1>
             `)
             setLoading(false);
         }).catch(err => {
